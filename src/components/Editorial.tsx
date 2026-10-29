@@ -3,177 +3,122 @@ import { motion, useInView } from 'framer-motion'
 
 export default function Editorial() {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
     <section
       ref={ref}
       aria-label="Editorial introduction"
-      style={{
-        background: '#FAF7F0',
-        padding: '7rem 2rem',
-      }}
+      style={{ background: '#FAF7F0', padding: 'clamp(4rem,8vw,8rem) 0', overflow: 'hidden' }}
     >
       <div
+        className="section-inner"
         style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '4rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+          gap: 'clamp(3rem,6vw,6rem)',
           alignItems: 'center',
         }}
       >
-        {/* Text column */}
+        {/* ── Text column ── */}
         <div>
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            className="eyebrow"
+            initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: '#168AAD',
-              marginBottom: '1.25rem',
-              margin: '0 0 1.25rem 0',
-            }}
+            transition={{ duration: 0.5 }}
           >
             Why Nice?
           </motion.p>
 
           <motion.h2
-            initial={{ opacity: 0, y: 24 }}
+            className="section-title"
+            initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.7 }}
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: 700,
-              color: '#15324B',
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              margin: '0 0 1.75rem 0',
-            }}
+            transition={{ delay: 0.08, duration: 0.55 }}
           >
             A city that refuses<br />
-            <em style={{ fontStyle: 'italic', color: '#168AAD' }}>to be ordinary.</em>
+            <em className="accent-italic--aqua" style={{ color: '#168AAD' }}>to be ordinary.</em>
           </motion.h2>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-            }}
+            transition={{ delay: 0.18, duration: 0.55 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
           >
-            <p style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '1rem',
-              fontWeight: 400,
-              color: '#15324B',
-              lineHeight: 1.8,
-              margin: 0,
-              opacity: 0.85,
-            }}>
-              Nice sits at the meeting point of two worlds — the raw drama of the 
-              Alpes-Maritimes and the languid shimmer of the Mediterranean. It is a city 
-              with the soul of a sun-bleached painting and the energy of a place fully 
-              in love with being alive.
-            </p>
-            <p style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '1rem',
-              fontWeight: 400,
-              color: '#15324B',
-              lineHeight: 1.8,
-              margin: 0,
-              opacity: 0.85,
-            }}>
-              Three days here isn't a holiday — it's a beginning. A first taste 
-              of baroque alleyways, salt-heavy air, colours that shouldn't exist in 
-              real life, and a pace that makes you forget you were ever in a hurry.
-            </p>
+            {[
+              'Nice sits at the meeting point of two worlds — the raw drama of the Alpes-Maritimes and the languid shimmer of the Mediterranean. It is a city with the soul of a sun-bleached painting and the energy of a place fully in love with being alive.',
+              'Three days here isn\'t a holiday — it\'s a beginning. A first taste of baroque alleyways, salt-heavy air, colours that shouldn\'t exist in real life, and a pace that makes you forget you were ever in a hurry.',
+            ].map((text, i) => (
+              <p
+                key={i}
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: 'clamp(0.9375rem, 1.5vw, 1.0625rem)',
+                  color: '#15324B',
+                  lineHeight: 1.85,
+                  margin: 0,
+                  opacity: 0.82,
+                }}
+              >
+                {text}
+              </p>
+            ))}
           </motion.div>
 
-          <motion.div
+          <motion.span
+            className="coral-rule"
             initial={{ opacity: 0, scaleX: 0 }}
             animate={inView ? { opacity: 1, scaleX: 1 } : {}}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            style={{
-              width: '60px',
-              height: '3px',
-              background: '#F47F65',
-              borderRadius: '2px',
-              marginTop: '2rem',
-              transformOrigin: 'left',
-            }}
+            transition={{ delay: 0.32, duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ transformOrigin: 'left', display: 'block', width: '40px', height: '2px', background: '#F47F65', marginTop: '2rem' }}
             aria-hidden="true"
           />
         </div>
 
-        {/* Decorative quote column */}
+        {/* ── Pull-quote column — minimal, no bubble card ── */}
         <motion.div
-          initial={{ opacity: 0, x: 32 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ delay: 0.3, duration: 0.8 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.22, duration: 0.6 }}
           style={{
             background: '#15324B',
-            borderRadius: '1.5rem',
-            padding: '3rem 2.5rem',
+            padding: 'clamp(2rem,5vw,3rem) clamp(2rem,5vw,3rem)',
             position: 'relative',
-            overflow: 'hidden',
           }}
         >
+          {/* Thin coral left border — editorial accent */}
           <div
             aria-hidden="true"
             style={{
               position: 'absolute',
-              top: '-2rem',
-              right: '-2rem',
-              width: '10rem',
-              height: '10rem',
-              borderRadius: '50%',
-              background: 'rgba(22,138,173,0.15)',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              width: '3px',
+              background: '#F47F65',
             }}
           />
-          <span
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: '6rem',
-              color: '#F47F65',
-              lineHeight: 0.8,
-              display: 'block',
-              marginBottom: '1.5rem',
-              opacity: 0.6,
-            }}
-            aria-hidden="true"
-          >"</span>
+
           <p style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: '1.375rem',
+            fontSize: 'clamp(1.1875rem, 2.5vw, 1.4375rem)',
             fontStyle: 'italic',
             color: '#FAF7F0',
-            lineHeight: 1.6,
-            margin: '0 0 2rem 0',
+            lineHeight: 1.65,
+            margin: '0 0 1.75rem',
           }}>
-            Nice is one of those rare cities where beauty feels entirely effortless — 
-            as though the light conspired with the architecture just to make you stop.
+            "Nice is one of those rare cities where beauty feels entirely effortless — as though the light conspired with the architecture just to make you stop."
           </p>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '0.8125rem',
-            fontWeight: 500,
-            letterSpacing: '0.08em',
-            color: '#DDF3F3',
+            fontSize: '0.6875rem',
+            fontWeight: 600,
+            letterSpacing: '0.14em',
+            color: 'rgba(221,243,243,0.5)',
             textTransform: 'uppercase',
             margin: 0,
-            opacity: 0.7,
           }}>
             — Nice Escape Campaign Brief
           </p>

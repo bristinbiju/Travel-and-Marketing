@@ -2,207 +2,191 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 const inclusions = [
-  { icon: '🛏', label: '2 Nights Accommodation', note: 'Boutique hotel — TBC' },
-  { icon: '🚕', label: 'Airport Transfers', note: 'Both ways — to be confirmed' },
-  { icon: '🗺', label: 'Curated City Guide', note: 'Digital & printed — TBC' },
-  { icon: '🍽', label: 'Welcome Dinner', note: 'Restaurant & inclusions TBC' },
-  { icon: '🎟', label: 'Museum Entry', note: '1–2 venues — to be confirmed' },
-  { icon: '🚲', label: 'Bike Hire Day', note: '1 day — logistics TBC' },
+  { label: '2 Nights Accommodation', note: 'Boutique hotel — TBC' },
+  { label: 'Airport Transfers',       note: 'Both ways — to be confirmed' },
+  { label: 'Curated City Guide',      note: 'Digital & printed — TBC' },
+  { label: 'Welcome Dinner',          note: 'Restaurant & inclusions TBC' },
+  { label: 'Museum Entry',            note: '1–2 venues — to be confirmed' },
+  { label: 'Bike Hire Day',           note: '1 day — logistics TBC' },
 ]
 
 const pricing = [
-  { label: 'Solo Traveller', price: 'From TBC', note: 'Per person, single occupancy' },
-  { label: 'Per Couple', price: 'From TBC', note: 'Per person, double occupancy' },
-  { label: 'Group (4+)', price: 'Contact us', note: 'Group pricing on request' },
+  { label: 'Solo Traveller', price: 'TBC', note: 'Per person, single occupancy' },
+  { label: 'Per Couple',     price: 'TBC', note: 'Per person, double occupancy' },
+  { label: 'Group (4+)',     price: 'On request', note: 'Group pricing available' },
 ]
 
 export default function PackageDetails() {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
     <section
       id="package"
       ref={ref}
       aria-label="Package details"
-      style={{
-        background: '#DDF3F3',
-        padding: '7rem 2rem',
-      }}
+      style={{ background: '#DDF3F3', padding: 'clamp(4rem,8vw,8rem) 0' }}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      <div className="section-inner">
+
         {/* Header */}
-        <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
+        <div style={{ marginBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            className="eyebrow"
+            initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: '#168AAD',
-              margin: '0 0 1rem 0',
-            }}
+            transition={{ duration: 0.45 }}
           >
             The Package
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            className="section-title"
+            initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.7 }}
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: 700,
-              color: '#15324B',
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              margin: '0 0 1rem 0',
-            }}
+            transition={{ delay: 0.08, duration: 0.5 }}
           >
             Everything you need,<br />
-            <em style={{ fontStyle: 'italic', color: '#F47F65' }}>nothing you don't.</em>
+            <em className="accent-italic">nothing you don't.</em>
           </motion.h2>
-          <motion.div
+
+          {/* Concept notice — inline text, not pill badge */}
+          <motion.p
+            role="note"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.25, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '0.8125rem',
+              color: 'rgba(21,50,75,0.65)',
+              margin: 0,
+              lineHeight: 1.6,
+              borderLeft: '2px solid rgba(244,127,101,0.5)',
+              paddingLeft: '0.875rem',
+              maxWidth: '52ch',
+            }}
           >
-            <span
-              role="note"
-              style={{
-                display: 'inline-block',
-                background: 'rgba(244,127,101,0.15)',
-                border: '1px solid rgba(244,127,101,0.4)',
-                borderRadius: '2rem',
-                padding: '0.5rem 1.25rem',
-                fontFamily: "'Inter', sans-serif",
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                letterSpacing: '0.08em',
-                color: '#F47F65',
-                textTransform: 'uppercase',
-                marginTop: '0.5rem',
-              }}
-            >
-              ⚠️ Campaign Concept — All Inclusions, Dates & Prices Are Indicative &amp; TBC
-            </span>
-          </motion.div>
+            <strong style={{ color: '#15324B' }}>Campaign concept:</strong> all inclusions, dates and prices listed here are indicative and subject to change. Nothing is confirmed at this stage.
+          </motion.p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem' }}>
+        {/* Content grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+          gap: 'clamp(1.5rem, 4vw, 2.5rem)',
+        }}>
+
           {/* Inclusions */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.65 }}
-            style={{
-              background: '#FAF7F0',
-              borderRadius: '1.25rem',
-              padding: '2.5rem',
-              boxShadow: '0 2px 24px rgba(21,50,75,0.07)',
-            }}
+            transition={{ delay: 0.15, duration: 0.5 }}
+            style={{ background: '#FAF7F0', padding: 'clamp(1.75rem,4vw,2.5rem)' }}
           >
             <h3 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: '1.375rem',
+              fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
               fontWeight: 700,
               color: '#15324B',
-              margin: '0 0 1.75rem 0',
+              margin: '0 0 1.5rem',
+              letterSpacing: '-0.01em',
             }}>
-              What's Included
+              Indicative Inclusions
             </h3>
-            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
               {inclusions.map((item, i) => (
                 <li
                   key={i}
                   style={{
                     display: 'flex',
-                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
                     gap: '1rem',
-                    paddingBottom: i < inclusions.length - 1 ? '1rem' : 0,
+                    padding: 'clamp(0.75rem,2vw,1rem) 0',
                     borderBottom: i < inclusions.length - 1 ? '1px solid rgba(21,50,75,0.07)' : 'none',
+                    flexWrap: 'wrap',
                   }}
                 >
-                  <span style={{ fontSize: '1.25rem', flexShrink: 0 }} aria-hidden="true">{item.icon}</span>
-                  <div>
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: '0.9375rem', color: '#15324B', margin: '0 0 0.2rem 0' }}>
-                      {item.label}
-                    </p>
-                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8125rem', color: '#168AAD', margin: 0, fontStyle: 'italic' }}>
-                      {item.note}
-                    </p>
-                  </div>
+                  <span style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 500,
+                    fontSize: '0.9375rem',
+                    color: '#15324B',
+                  }}>
+                    {item.label}
+                  </span>
+                  <span style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.8125rem',
+                    color: '#168AAD',
+                    fontStyle: 'italic',
+                    whiteSpace: 'nowrap',
+                  }}>
+                    {item.note}
+                  </span>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Pricing */}
+          {/* Pricing + booking note */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.32, duration: 0.65 }}
+            transition={{ delay: 0.25, duration: 0.5 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(1rem,3vw,1.5rem)' }}
           >
-            <div style={{
-              background: '#15324B',
-              borderRadius: '1.25rem',
-              padding: '2.5rem',
-              marginBottom: '1.5rem',
-            }}>
+            <div style={{ background: '#15324B', padding: 'clamp(1.75rem,4vw,2.5rem)' }}>
               <h3 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: '1.375rem',
+                fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
                 fontWeight: 700,
                 color: '#FAF7F0',
-                margin: '0 0 1.75rem 0',
+                margin: '0 0 1.5rem',
+                letterSpacing: '-0.01em',
               }}>
                 Indicative Pricing
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                {pricing.map((tier, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      paddingBottom: i < pricing.length - 1 ? '1.25rem' : 0,
-                      borderBottom: i < pricing.length - 1 ? '1px solid rgba(221,243,243,0.1)' : 'none',
-                      flexWrap: 'wrap',
-                      gap: '0.5rem',
-                    }}
-                  >
-                    <div>
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: '0.9375rem', color: '#FAF7F0', margin: 0 }}>
-                        {tier.label}
-                      </p>
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.75rem', color: 'rgba(221,243,243,0.55)', margin: 0, marginTop: '0.2rem' }}>
-                        {tier.note}
-                      </p>
-                    </div>
-                    <span style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: '1.125rem',
-                      fontWeight: 700,
-                      color: '#F47F65',
-                    }}>
-                      {tier.price}
-                    </span>
+              {pricing.map((tier, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    gap: '1rem',
+                    padding: 'clamp(0.75rem,2vw,1rem) 0',
+                    borderBottom: i < pricing.length - 1 ? '1px solid rgba(221,243,243,0.08)' : 'none',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <div>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: '0.9375rem', color: '#FAF7F0', margin: 0 }}>
+                      {tier.label}
+                    </p>
+                    <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.75rem', color: 'rgba(221,243,243,0.45)', margin: '0.2rem 0 0' }}>
+                      {tier.note}
+                    </p>
                   </div>
-                ))}
-              </div>
+                  <span style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: '1.0625rem',
+                    fontWeight: 600,
+                    color: '#F47F65',
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {tier.price}
+                  </span>
+                </div>
+              ))}
             </div>
 
-            {/* Deadline note */}
+            {/* Booking note */}
             <div style={{
               background: '#FAF7F0',
-              borderRadius: '1.25rem',
-              padding: '1.75rem',
-              boxShadow: '0 2px 24px rgba(21,50,75,0.07)',
+              padding: 'clamp(1.25rem,3vw,1.75rem)',
+              borderLeft: '2px solid #F47F65',
             }}>
               <p style={{
                 fontFamily: "'Inter', sans-serif",
@@ -211,7 +195,7 @@ export default function PackageDetails() {
                 lineHeight: 1.7,
                 margin: 0,
               }}>
-                <strong>⚡ Booking Deadline:</strong> To be confirmed. Register your interest below and be the first to know when dates and pricing are announced.
+                <strong>Booking deadline:</strong> to be confirmed. Register your interest below to be the first to know when dates and pricing are announced.
               </p>
             </div>
           </motion.div>

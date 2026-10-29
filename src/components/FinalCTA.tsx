@@ -3,121 +3,98 @@ import { motion, useInView } from 'framer-motion'
 
 export default function FinalCTA() {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
     <section
       ref={ref}
-      aria-label="Final call to action – register interest"
+      aria-label="Register your interest in Nice Escape"
       style={{
         position: 'relative',
         overflow: 'hidden',
         background: '#15324B',
-        padding: '8rem 2rem',
+        padding: 'clamp(5rem,10vw,9rem) 0',
         textAlign: 'center',
       }}
     >
-      {/* Background decoration */}
+      {/* Decorative background circles — restrained, performance-safe */}
       <div aria-hidden="true" style={{
-        position: 'absolute',
-        top: '-6rem',
-        left: '-6rem',
-        width: '28rem',
-        height: '28rem',
-        borderRadius: '50%',
-        background: 'rgba(22,138,173,0.08)',
-        pointerEvents: 'none',
+        position: 'absolute', top: '-8rem', left: '-6rem',
+        width: '28rem', height: '28rem', borderRadius: '50%',
+        background: 'rgba(22,138,173,0.07)', pointerEvents: 'none',
       }} />
       <div aria-hidden="true" style={{
-        position: 'absolute',
-        bottom: '-8rem',
-        right: '-6rem',
-        width: '32rem',
-        height: '32rem',
-        borderRadius: '50%',
-        background: 'rgba(244,127,101,0.06)',
-        pointerEvents: 'none',
+        position: 'absolute', bottom: '-9rem', right: '-5rem',
+        width: '32rem', height: '32rem', borderRadius: '50%',
+        background: 'rgba(244,127,101,0.05)', pointerEvents: 'none',
       }} />
 
-      <div style={{ position: 'relative', maxWidth: '700px', margin: '0 auto' }}>
+      <div style={{ position: 'relative', maxWidth: '680px', margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2rem)' }}>
+
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          className="eyebrow eyebrow--light"
+          initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: '#DDF3F3',
-            opacity: 0.65,
-            margin: '0 0 1.25rem 0',
-          }}
+          transition={{ duration: 0.45 }}
         >
           Nice Escape · Campaign Concept
         </motion.p>
 
         <motion.h2
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.1, duration: 0.8 }}
+          transition={{ delay: 0.08, duration: 0.55 }}
           style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(2.25rem, 5vw, 4rem)',
+            fontSize: 'clamp(2.25rem, 5.5vw, 4rem)',
             fontWeight: 700,
             color: '#FAF7F0',
-            lineHeight: 1.05,
-            letterSpacing: '-0.02em',
-            margin: '0 0 1.5rem 0',
+            lineHeight: 1.0,
+            letterSpacing: '-0.025em',
+            margin: '0 0 clamp(1rem,3vw,1.5rem)',
           }}
         >
           Your Riviera moment<br />
-          <em style={{ fontStyle: 'italic', color: '#F47F65' }}>is waiting.</em>
+          <em className="accent-italic">is waiting.</em>
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.7 }}
+          transition={{ delay: 0.18, duration: 0.5 }}
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '1rem',
-            color: 'rgba(250,247,240,0.72)',
+            fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
+            color: 'rgba(250,247,240,0.65)',
             lineHeight: 1.8,
-            maxWidth: '480px',
-            margin: '0 auto 1rem auto',
+            margin: '0 auto clamp(0.75rem,2vw,1rem)',
+            maxWidth: '46ch',
           }}
         >
-          Nice Escape is a proposed campaign. Dates, pricing and availability are not yet confirmed. 
+          Nice Escape is a proposed campaign. Dates, pricing and availability are not yet confirmed.
           Register your interest to be the first to know when this trip launches.
         </motion.p>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ delay: 0.26, duration: 0.45 }}
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '0.8125rem',
-            color: 'rgba(221,243,243,0.55)',
-            marginBottom: '2.5rem',
+            fontSize: '0.75rem',
+            color: 'rgba(221,243,243,0.4)',
+            margin: '0 0 clamp(2rem,4vw,2.75rem)',
+            letterSpacing: '0.02em',
           }}
         >
           No booking will be confirmed. No payment will be taken at this stage.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.35, duration: 0.65 }}
-          style={{
-            display: 'flex',
-            gap: '1rem',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-          }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          style={{ display: 'flex', gap: '0.875rem', justifyContent: 'center', flexWrap: 'wrap' }}
         >
           <button
             id="final-cta-btn"
@@ -125,29 +102,18 @@ export default function FinalCTA() {
               background: '#F47F65',
               color: '#FAF7F0',
               border: 'none',
-              borderRadius: '2rem',
-              padding: '1.125rem 2.75rem',
+              borderRadius: '2px',
+              padding: 'clamp(0.875rem,2vw,1.125rem) clamp(2rem,4vw,2.75rem)',
               fontFamily: "'Inter', sans-serif",
-              fontSize: '0.9375rem',
+              fontSize: '0.75rem',
               fontWeight: 700,
-              letterSpacing: '0.05em',
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
               cursor: 'pointer',
-              transition: 'background 0.2s, transform 0.15s, box-shadow 0.2s',
-              boxShadow: '0 6px 32px rgba(244,127,101,0.45)',
+              transition: 'opacity 0.18s',
             }}
-            onMouseEnter={e => {
-              const btn = e.currentTarget
-              btn.style.background = '#e06650'
-              btn.style.transform = 'scale(1.05)'
-              btn.style.boxShadow = '0 8px 40px rgba(244,127,101,0.6)'
-            }}
-            onMouseLeave={e => {
-              const btn = e.currentTarget
-              btn.style.background = '#F47F65'
-              btn.style.transform = 'scale(1)'
-              btn.style.boxShadow = '0 6px 32px rgba(244,127,101,0.45)'
-            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.84')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
             aria-label="Register your interest in Nice Escape"
           >
             Register My Interest
@@ -156,30 +122,28 @@ export default function FinalCTA() {
           <button
             style={{
               background: 'transparent',
-              color: 'rgba(250,247,240,0.7)',
-              border: '1.5px solid rgba(250,247,240,0.25)',
-              borderRadius: '2rem',
-              padding: '1.125rem 2.75rem',
+              color: 'rgba(250,247,240,0.65)',
+              border: '1px solid rgba(250,247,240,0.2)',
+              borderRadius: '2px',
+              padding: 'clamp(0.875rem,2vw,1.125rem) clamp(2rem,4vw,2.75rem)',
               fontFamily: "'Inter', sans-serif",
-              fontSize: '0.9375rem',
+              fontSize: '0.75rem',
               fontWeight: 500,
-              letterSpacing: '0.04em',
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
               cursor: 'pointer',
-              transition: 'border-color 0.2s, color 0.2s',
+              transition: 'border-color 0.18s, color 0.18s',
             }}
             onMouseEnter={e => {
-              const btn = e.currentTarget
-              btn.style.borderColor = '#DDF3F3'
-              btn.style.color = '#DDF3F3'
+              e.currentTarget.style.borderColor = 'rgba(221,243,243,0.4)'
+              e.currentTarget.style.color = '#DDF3F3'
             }}
             onMouseLeave={e => {
-              const btn = e.currentTarget
-              btn.style.borderColor = 'rgba(250,247,240,0.25)'
-              btn.style.color = 'rgba(250,247,240,0.7)'
+              e.currentTarget.style.borderColor = 'rgba(250,247,240,0.2)'
+              e.currentTarget.style.color = 'rgba(250,247,240,0.65)'
             }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="Back to top"
+            aria-label="Back to top of page"
           >
             Back to Top
           </button>

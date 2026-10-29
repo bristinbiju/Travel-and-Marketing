@@ -4,15 +4,15 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 const faqs = [
   {
     q: 'Is this a confirmed trip I can book right now?',
-    a: 'No — Nice Escape is currently a campaign concept. This page is an editorial preview of a proposed 3-day getaway to Nice. Specific dates, pricing, availability, and inclusions are all to be confirmed. Register your interest to be notified when the trip goes live.',
+    a: 'No — Nice Escape is currently a campaign concept. This page is an editorial preview of a proposed 3-day getaway to Nice. Specific dates, pricing, availability and inclusions are all to be confirmed. Register your interest to be notified when the trip goes live.',
   },
   {
     q: 'Who is this trip designed for?',
-    a: 'Nice Escape is crafted for curious, culture-hungry travellers aged 20–35 — couples, small groups of friends, and confident solo explorers. If you\'re after a city break that combines real culture, beautiful scenery and good food without the resort-package feeling, Nice is your city.',
+    a: 'Nice Escape is crafted for curious, culture-hungry travellers aged 20–35 — couples, small groups of friends and confident solo explorers. If you\'re after a city break that combines real culture, beautiful scenery and good food without the resort-package feeling, Nice is your city.',
   },
   {
     q: 'What\'s the best time of year to visit Nice?',
-    a: 'Nice is genuinely enjoyable almost year-round, but the sweet spots are late spring (May–June) and early autumn (September–October) — warm sun, fewer crowds, and the city at its most relaxed. July and August are peak season and get busy along the seafront.',
+    a: 'Nice is genuinely enjoyable almost year-round, but the sweet spots are late spring (May–June) and early autumn (September–October) — warm sun, fewer crowds and the city at its most relaxed. July and August are peak season and get busy along the seafront.',
   },
   {
     q: 'Do I need to speak French?',
@@ -24,11 +24,11 @@ const faqs = [
   },
   {
     q: 'What is and isn\'t included in the package?',
-    a: 'Indicative inclusions for this concept are: 2 nights boutique accommodation, return airport transfers, a curated city guide, a welcome dinner, one or two museum entries, and a day\'s bike hire. All of these are provisional and subject to change. International flights are not included. Final inclusions will be confirmed when the trip launches.',
+    a: 'Indicative inclusions for this concept are: 2 nights boutique accommodation, return airport transfers, a curated city guide, a welcome dinner, museum entry and a day\'s bike hire. All of these are provisional and subject to change. International flights are not included. Final inclusions will be confirmed when the trip launches.',
   },
   {
     q: 'Are there options for solo travellers?',
-    a: 'Yes — this trip is designed to work beautifully for solo travellers. Nice is an exceptionally safe and walkable city with a lively café and bar culture that makes solo exploring genuinely enjoyable. Pricing for single occupancy will be listed separately when confirmed.',
+    a: 'Yes — this trip is designed to work beautifully for solo travellers. Nice is an exceptionally safe, walkable city with a lively café and bar culture that makes solo exploring genuinely enjoyable. Single-occupancy pricing will be listed separately when confirmed.',
   },
 ]
 
@@ -37,11 +37,7 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
   const id = `faq-item-${index}`
 
   return (
-    <div
-      style={{
-        borderBottom: '1px solid rgba(21,50,75,0.1)',
-      }}
-    >
+    <div style={{ borderBottom: '1px solid rgba(21,50,75,0.09)' }}>
       <button
         id={`${id}-btn`}
         aria-expanded={open}
@@ -52,8 +48,8 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '1rem',
-          padding: '1.5rem 0',
+          gap: '1.5rem',
+          padding: 'clamp(1.125rem,2.5vw,1.5rem) 0',
           background: 'none',
           border: 'none',
           cursor: 'pointer',
@@ -62,35 +58,49 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
       >
         <span style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: '1.0625rem',
+          fontSize: 'clamp(1rem,1.8vw,1.0625rem)',
           fontWeight: 600,
           color: '#15324B',
           lineHeight: 1.4,
         }}>
           {faq.q}
         </span>
-        <motion.span
-          animate={{ rotate: open ? 45 : 0 }}
-          transition={{ duration: 0.25 }}
+
+        {/* Simple line-cross icon — cleaner than circle+plus */}
+        <span
+          aria-hidden="true"
           style={{
             flexShrink: 0,
-            width: '28px',
-            height: '28px',
-            borderRadius: '50%',
-            background: open ? '#F47F65' : '#DDF3F3',
+            width: '20px',
+            height: '20px',
+            position: 'relative',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: open ? '#FAF7F0' : '#15324B',
-            fontSize: '1.125rem',
-            fontWeight: 300,
-            lineHeight: 1,
-            transition: 'background 0.2s',
           }}
-          aria-hidden="true"
         >
-          +
-        </motion.span>
+          <motion.span
+            style={{
+              position: 'absolute',
+              width: '14px',
+              height: '1.5px',
+              background: open ? '#F47F65' : '#15324B',
+              borderRadius: '1px',
+              transition: 'background 0.2s',
+            }}
+          />
+          <motion.span
+            animate={{ rotate: open ? 90 : 0, opacity: open ? 0 : 1 }}
+            transition={{ duration: 0.22 }}
+            style={{
+              position: 'absolute',
+              width: '1.5px',
+              height: '14px',
+              background: '#15324B',
+              borderRadius: '1px',
+            }}
+          />
+        </span>
       </button>
 
       <AnimatePresence>
@@ -102,17 +112,16 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{ overflow: 'hidden' }}
           >
             <p style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: '0.9375rem',
-              color: '#15324B',
+              color: 'rgba(21,50,75,0.75)',
               lineHeight: 1.8,
-              opacity: 0.8,
-              margin: '0 0 1.5rem 0',
-              paddingRight: '2.5rem',
+              margin: '0 0 1.375rem',
+              maxWidth: '66ch',
             }}>
               {faq.a}
             </p>
@@ -125,64 +134,44 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
 
 export default function FAQ() {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
   return (
     <section
       id="faq"
       ref={ref}
       aria-label="Frequently asked questions"
-      style={{
-        background: '#FAF7F0',
-        padding: '7rem 2rem',
-      }}
+      style={{ background: '#FAF7F0', padding: 'clamp(4rem,8vw,8rem) 0' }}
     >
-      <div style={{
-        maxWidth: '860px',
-        margin: '0 auto',
-      }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 clamp(1.25rem,5vw,2rem)' }}>
+
         {/* Header */}
-        <div style={{ marginBottom: '3.5rem' }}>
+        <div style={{ marginBottom: 'clamp(2rem,5vw,3.5rem)' }}>
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            className="eyebrow"
+            initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: '#168AAD',
-              margin: '0 0 1rem 0',
-            }}
+            transition={{ duration: 0.45 }}
           >
             Questions
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            className="section-title"
+            initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.7 }}
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: 700,
-              color: '#15324B',
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              margin: 0,
-            }}
+            transition={{ delay: 0.08, duration: 0.5 }}
           >
             Everything you<br />
-            <em style={{ fontStyle: 'italic', color: '#F47F65' }}>want to know.</em>
+            <em className="accent-italic">want to know.</em>
           </motion.h2>
         </div>
 
-        {/* FAQ items */}
+        {/* Items */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.65 }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.18, duration: 0.5 }}
+          style={{ borderTop: '1px solid rgba(21,50,75,0.09)' }}
         >
           {faqs.map((faq, i) => (
             <FAQItem key={i} faq={faq} index={i} />
